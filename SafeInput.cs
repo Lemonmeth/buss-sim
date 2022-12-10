@@ -31,7 +31,7 @@ public class SafeInput
 		{
 			System.Console.WriteLine("Felaktig inmatning, försök igen: ");
 
-			// Testar rekursion, hoppar till första strings-medoten där den ber om ny inmatning.
+			// Testar rekursion, hoppar till första strings-metoden där den ber om ny inmatning.
 			return Strings();
 		}
 	}
@@ -63,7 +63,7 @@ public class SafeInput
 		{
 			System.Console.WriteLine("Felaktig inmatning, försök igen: ");
 
-			// Testar rekursion, hoppar till första integers-medoten där den ber om ny inmatning.
+			// Testar rekursion, hoppar till första integers-metoden där den ber om ny inmatning.
 			return Integers();
 		}
 	}
