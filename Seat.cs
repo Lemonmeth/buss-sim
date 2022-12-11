@@ -9,7 +9,7 @@ public class Seat
 	// Plats för passagerare. Får endast sättas via metoder nedan men kan hämtas/läsas publikt
 	public Passenger Passenger { get; private set; }
 
-	// Metoder för att instansiera eller ta bort passagerarobjekt i sätesobjektet
+	// Metoder för att instansiera eller ta bort passagerarobjekt i sätesobjektet och markera sätet som upptaget eller ledigt
 	public void SitDown(Passenger newPassanger)
 	{
 		Occupied = true;
