@@ -20,7 +20,7 @@ class Buss
 				"Ta bort passagerare"
 			};
 
-		public void Run()
+		public void Run() // Metod för att starta bussen (starta programmet)
 		{
 			// Skapa upp alla seat-objekt
 			for (int i = 0; i < allSeats.Length; i++)
@@ -40,12 +40,14 @@ class Buss
 				// Dölj markören, snyggare
 				Console.CursorVisible = false;
 
-				// Rensa skärmen och skriv ut menyn med marketat alternativ
 				Console.Clear();
 				System.Console.WriteLine("Buss OS - Använd 🠕, 🠗 och Enter");
 				System.Console.WriteLine("-------------------------------");
+				
+				// Skriv ut vektorn med menyalternativ
 				for (int i = 0; i < menuOptions.Length; i++)
 				{
+					// Addera hakparenteser för aktivt val
 					if (menuSelect == i)
 					{
 						System.Console.WriteLine("[" + menuOptions[i] + "]");
@@ -63,6 +65,7 @@ class Buss
 				// Kontrollera tryckt tangent
 				if (keyPressed.Key == ConsoleKey.DownArrow)
 				{	
+					// Blåddra endast neråt om du kan bläddra till något under
 					if (menuSelect != (menuOptions.Length -1))
 					{
 						menuSelect++;
@@ -70,6 +73,7 @@ class Buss
 				}
 				else if (keyPressed.Key == ConsoleKey.UpArrow)
 				{
+					// Blädra endast uppåt om du kan bläddra till något över
 					if (menuSelect != 0)
 					{
 						menuSelect--;
@@ -117,7 +121,7 @@ class Buss
 			}
 		}
 
-		public void OpenDoors() // Metod att generera lite passagerare
+		public void OpenDoors() // Testmetod att generera lite passagerare
 		{
 
             Random rnd = new Random();
@@ -125,7 +129,18 @@ class Buss
 			{
                 int rand = rnd.Next(1, 3);
                 int age = rnd.Next(1, 100);
-                string gender = "male";
+				string gender;
+
+				if (age > 49)
+				{
+                	gender = "male";
+				}
+				else
+				{
+					gender = "female";
+				}
+
+				// Sätt inte passagerare på alla säten
 				if (rand == 1)
                 {
                     allSeats[i].SitDown(new Passenger(age, gender));
@@ -416,10 +431,15 @@ class Buss
 				allSeats[(nr - 1)].GetUp();
 
 				System.Console.WriteLine("Passagerare på plats " + nr + " gick av.");
+				
+				// Be passagerarna hoppa frammåt i bussen
+				front_passengers();
+				System.Console.WriteLine("Resten av passagerarna hoppade framåt.");
 			}
 			else
 			{
 				System.Console.WriteLine("Ingen person i sätet!");
 			}
+
 		}	
 	}
