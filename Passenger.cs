@@ -21,14 +21,13 @@ public class Passenger
         public string SetGender(string input)
 		{
             // Spara om input i små bokstaver, då resten av programmet jämför mot t.ex "male" och ej "Male".
-            input = input.ToLower();
 			while (true)
 			{
-                if (input == "male")
+                if (input.ToLower().Trim() == "male")
                 {
                     return input;
                 }
-                else if (input == "female")
+                else if (input.ToLower().Trim() == "female")
                 {
                     return input;
                 }

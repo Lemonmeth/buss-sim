@@ -19,7 +19,7 @@ class Buss
 				"Peta på en passagerare",
 				"Ta bort passagerare"
 			};
-
+			public int menuSelect = 0;	
 		public void Run() // Metod för att starta bussen (starta programmet)
 		{
 			// Skapa upp alla seat-objekt
@@ -29,10 +29,10 @@ class Buss
 			}
 
 			// testmetod för att fylla bussen med lite folk
-			OpenDoors();
+			OpenDoors(); // nytt namn
 
 			// Initialiasera menyväljaren
-			int menuSelect = 0;			
+					
 
 			// Menyloop
 			while (true)
@@ -41,8 +41,8 @@ class Buss
 				Console.CursorVisible = false;
 
 				Console.Clear();
-				System.Console.WriteLine("Buss OS - Använd 🠕, 🠗 och Enter");
-				System.Console.WriteLine("-------------------------------");
+				System.Console.WriteLine("Buss OS - Använd 🠕, 🠗, Enter och Esc"); // gör om till metod
+				System.Console.WriteLine("------------------------------------");
 				
 				// Skriv ut vektorn med menyalternativ
 				for (int i = 0; i < menuOptions.Length; i++)
@@ -78,6 +78,12 @@ class Buss
 					{
 						menuSelect--;
 					}
+				}
+				else if (keyPressed.Key == ConsoleKey.Escape)
+				{
+					// Avsluta runmetod och program
+					Console.Clear();
+					break;
 				}
 				else if (keyPressed.Key == ConsoleKey.Enter)
 				{
@@ -121,6 +127,23 @@ class Buss
 			}
 		}
 
+		public void Clear_And_Print_Menu_Head() // Metod för att rensa skärm och skriva ut topmeny + menyval
+		{
+			Console.Clear();
+			string firstLine = "Buss OS - " + menuOptions[menuSelect];
+
+			// Dynamiskt antal bindesträck baserat på menyvals stränglängd
+			string secondLine = "";
+			for (int i = 0; i < firstLine.Length; i++)
+			{
+				secondLine += "-";
+			}
+
+			// Skriv ut topmeny
+			System.Console.WriteLine(firstLine);
+			System.Console.WriteLine(secondLine);
+		}
+
 		public void OpenDoors() // Testmetod att generera lite passagerare
 		{
 
@@ -131,7 +154,7 @@ class Buss
                 int age = rnd.Next(1, 100);
 				string gender;
 
-				if (age > 49)
+				if (age%2 == 1)
 				{
                 	gender = "male";
 				}
@@ -150,9 +173,8 @@ class Buss
 
 		public void add_passenger() // Metod för att stiga på en passagerare
 		{
-			Console.Clear();
-			System.Console.WriteLine("Buss OS - " + menuOptions[0]);
-			System.Console.WriteLine("----------------------------");
+			// Skriv ut menytop
+			Clear_And_Print_Menu_Head();
 
 			// Be om inmatning
 			Console.WriteLine("Ange ålder: ");
@@ -193,10 +215,9 @@ class Buss
 		
 		public void print_buss() // Metod för att skriva ut alla passagerare
 		{
-			//Skriv ut alla värden ur vektorn. Alltså - skriv ut alla passagerare
-			Console.Clear();
-			System.Console.WriteLine("BussOS - " + menuOptions[1]);
-			System.Console.WriteLine("-----------------------------------");
+			// Skriv ut menytop
+			Clear_And_Print_Menu_Head();
+
 			for (int i = 0; i < allSeats.Length; i++)
 			{
 				// Nullchecka så det finns en passagerare i sätet
@@ -218,6 +239,7 @@ class Buss
 		
 		public int calc_total_age(bool withText) // Metod för att beräkra total ålder för alla passagerare, möjlighet till argument i anrop
 		{
+
 			// initiera variabel för att hålla koll på total ålder
 			int total = 0;
 			for (int i = 0; i < allSeats.Length; i++)
@@ -232,9 +254,9 @@ class Buss
 			// om true skickas med som argument i metodanropet, skriv också ut följande
 			if (withText == true)
 			{
-				Console.Clear();
-				System.Console.WriteLine("Buss OS - " + menuOptions[2]);
-				System.Console.WriteLine("-----------------------------");
+				// Skriv ut menytop
+				Clear_And_Print_Menu_Head();
+				System.Console.WriteLine("");
 				System.Console.WriteLine("Den totala åldern för alla passagerare är " + total + " år.");
 			}
 			return total;
@@ -242,10 +264,8 @@ class Buss
 		
 		public void calc_average_age() // Metod för att beräkna snittåldern för alla passagerare
 		{
-
-			Console.Clear();
-			System.Console.WriteLine("BussOS - " + menuOptions[3]);
-			System.Console.WriteLine("----------------------------");
+			// Skriv ut meny top
+			Clear_And_Print_Menu_Head();
 
 			// Initiera variabel för att antalet upptagna säten
 			int seatsOccupied = 0;
@@ -259,6 +279,7 @@ class Buss
 			}
 
 			// Skriv ut resultat
+			System.Console.WriteLine("");
 			System.Console.WriteLine("Den genomsnittliga åldern för alla passagerare är: " + Convert.ToDouble(calc_total_age(false) / seatsOccupied) + " år.");
 
 		}
@@ -286,25 +307,32 @@ class Buss
 				}
 			}
 
-			Console.Clear();
-			System.Console.WriteLine("BussOS - " + menuOptions[4]);
-			System.Console.WriteLine("-------------------------------------");
+			// Skriv ut menytop
+			Clear_And_Print_Menu_Head();
 
 			// Skriv ut resultatet
+			System.Console.WriteLine("");
 			Console.WriteLine("Äldsta passageraren är passagerare nr: " + (personIndex + 1) + " Ålder: " + allSeats[personIndex].Passenger.age + " Kön: " + allSeats[personIndex].Passenger.gender);
 		}
 		
 		public void find_age() // Metod för att hitta passagerare i åldersspann
 		{
-			System.Console.WriteLine("BussOS - " + menuOptions[5]);
-			System.Console.WriteLine("---------------------------");
+			// Skriv ut menytop
+			Clear_And_Print_Menu_Head();
 
 			// Be om inmatning
+			System.Console.WriteLine("");
 			System.Console.WriteLine("Ange min ålder: ");
 			int lowAge = SafeInput.Integers();
 
 			System.Console.WriteLine("Ange max ålder: ");
 			int highAge = SafeInput.Integers();
+
+			// Rensa sida och skriv ut resultat
+			Clear_And_Print_Menu_Head();Console.Clear();
+
+			System.Console.WriteLine("Passagerare mellan " + lowAge + " och " + highAge + ":");
+			System.Console.WriteLine("");
 
 			for (int i = 0; i < allSeats.Length; i++)
 			{
@@ -314,7 +342,16 @@ class Buss
 					// Skriv endast ut om passagerarens ålder befinner sig i angivet spann
 					if (allSeats[i].Passenger.age > lowAge && allSeats[i].Passenger.age < highAge)
 					{
-						System.Console.WriteLine("Plats: " + i + "Upptagen: " + allSeats[i].Occupied + " Ålder: " + allSeats[i].Passenger.age + " Kön: " + allSeats[i].Passenger.gender);
+						if ((i + 1) <= 9)
+						{
+							// Lägg till mellan slag efter indexnummer om värdet är mindre än 10 (för att snygga till kolumnerna)
+							System.Console.WriteLine("| Plats: " + (i + 1) + "  | Upptagen: " + allSeats[i].Occupied + " | Ålder: " + allSeats[i].Passenger.age + " | Kön: " + allSeats[i].Passenger.gender + " |");
+						}
+						else
+						{
+							
+							System.Console.WriteLine("| Plats: " + (i + 1) + " | Upptagen: " + allSeats[i].Occupied + " | Ålder: " + allSeats[i].Passenger.age + " | Kön: " + allSeats[i].Passenger.gender + " |");
+						}
 					}
 				}
 			}
@@ -346,10 +383,13 @@ class Buss
 	            }            
             }
 
+			// Skriv ut menytop
+			Clear_And_Print_Menu_Head();
+
+			// Skriv ut alla passagerare
 			print_buss();
 			System.Console.WriteLine("");
 			Console.WriteLine("Bussen har sorterats!");
-            Console.ReadKey();
 
         }
 		
@@ -372,15 +412,24 @@ class Buss
 		
 		public void print_sex() // Metod för att skriva ut passagerarnas kön
 		{
-			System.Console.WriteLine("BussOS - " + menuOptions[6]);
-			System.Console.WriteLine("--------------------------");
+			// Skriv ut menytop
+			Clear_And_Print_Menu_Head();
 
 			for (int i = 0; i < allSeats.Length; i++)
 			{
-				// Nullchec, skriv bara ut om det finns en passagerare på platsen
+				// Nullcheck, skriv bara ut om det finns en passagerare på platsen
 				if (allSeats[i].Occupied == true)
 				{
-					System.Console.WriteLine("| Plats: " + (i + 1) + " | Kön: " + allSeats[i].Passenger.gender + " |");
+					if ((i + 1) <= 9)
+					{
+						// Lägg till mellan slag efter indexnummer om värdet är mindre än 10 (för att snygga till kolumnerna)
+						System.Console.WriteLine("| Plats: " + (i + 1) + "  | Kön: " + allSeats[i].Passenger.gender + " |");
+					}
+					else
+					{
+						
+						System.Console.WriteLine("| Plats: " + (i + 1) + " | Kön: " + allSeats[i].Passenger.gender + " |");
+					}
 				}
 			}
 
@@ -388,9 +437,8 @@ class Buss
 		
 		public void poke() // Metod för att peta på en passagerare
 		{
-			Console.Clear();
-			System.Console.WriteLine("BussOS - " + menuOptions[7]);
-			System.Console.WriteLine("--------------------------");
+			// Skriv ut menytop
+			Clear_And_Print_Menu_Head();
 			
 			// Skriv ut passagerarna
 			print_buss();
@@ -400,22 +448,25 @@ class Buss
 			System.Console.WriteLine("Peta på en passagerare, ange nummer mellan 1 - " + allSeats.Length);
 			int nr = SafeInput.Integers();
 
-			// Nullcheck, passagerare reagerar om det finns en passagerare i sätet
-			if (allSeats[(nr -1)].Occupied == true)
+			// rensa skärmen och skriv ut menytop
+			Clear_And_Print_Menu_Head();
+
+			// Nullcheck, passagerare reagerar om det finns en passagerare i sätet, och i vektorspann
+			if (nr >= 1 && nr <= 25 && allSeats[(nr -1)].Occupied == true)
 			{
 				// Anropa reaktions-metod och skicka in vald passagerare som argument
 				Reaction.React(allSeats[(nr - 1)].Passenger);
 			}
 			else
 			{
-				Console.WriteLine("Ingen person i sätet.");
+				Console.WriteLine("Ingen person i säte nr " + nr);
 			}
 		}	
 		
 		public void getting_off() // Metod för att stiga av en passagerare
 		{
-			System.Console.WriteLine("BussOS - " + menuOptions[8]);
-			System.Console.WriteLine("--------------------------");
+			// Skriv ut menytop
+			Clear_And_Print_Menu_Head();
 
 			// Skriv ut alla passagerare
 			print_buss();
@@ -426,19 +477,27 @@ class Buss
 			int nr = SafeInput.Integers();
 
 			// Nullcheck, om sätet är uppaget - stig av passageraren
-			if (allSeats[(nr - 1)].Occupied == true)
-			{
+			if (nr >= 1 && nr <= 25 && allSeats[(nr - 1)].Occupied == true)
+			{	
+				// Stig av vald passagerare
 				allSeats[(nr - 1)].GetUp();
 
-				System.Console.WriteLine("Passagerare på plats " + nr + " gick av.");
-				
-				// Be passagerarna hoppa frammåt i bussen
+				// knuffa fram passagere
 				front_passengers();
+
+				// Skriv ut menytop
+				Clear_And_Print_Menu_Head();
+
+				// Skriv ut alla passagerare
+				print_buss();
+				System.Console.WriteLine("");
+				System.Console.WriteLine("Passagerare på plats " + nr + " gick av.");
+				System.Console.WriteLine("");
 				System.Console.WriteLine("Resten av passagerarna hoppade framåt.");
 			}
 			else
 			{
-				System.Console.WriteLine("Ingen person i sätet!");
+				System.Console.WriteLine("Ingen person i säte nr " + nr);
 			}
 
 		}	

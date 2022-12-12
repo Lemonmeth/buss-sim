@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Reflection;
 
-/*
-Todo:
-- check null på sortlist eller occupied.
-*/
-
 namespace Bussen
 {
+// Huvudclass för projekt/program
 	class Program
 	{
 		public static void Main(string[] args)
 		{
-			//Denna del körs först! 
-			//Denna del av koden kan upplevas väldigt förvirrande. Men i sådana fall är det bara att "skriva av".
-			//Programmet skapar ett så kallat objekt av klassen "Buss". Det är det objekt vi kommer jobba med.
-			//Följande rad skapar en buss:
-			//SafeInput safeInput = new SafeInput();
+			// Instansiera nytt buss-objekt
 			Buss MinBuss = new Buss();
-			//Följande rad anropar metoden Run() som finns i vårt nya buss-objekt.
+
+			// anropa metoden run i det instansierade buss-objektet minbuss
 			MinBuss.Run();
-			//När metoden Run() tar slut så kommer koden fortsätta här. Då är programmet slut
+
+			// Programslut
+			System.Console.WriteLine("Programmet slut!");
+			System.Console.WriteLine("");
 			Console.Write("Press any key to continue . . . ");
 			Console.ReadKey(true);
 		}
